@@ -1,5 +1,7 @@
+import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
 
 interface WeatherForecast {
   date: string;
@@ -10,8 +12,8 @@ interface WeatherForecast {
 
 @Component({
   selector: 'app-root',
+  imports: [CommonModule, RouterOutlet],
   templateUrl: './app.component.html',
-  standalone: false,
   styleUrl: './app.component.css'
 })
 export class AppComponent implements OnInit {
@@ -34,5 +36,5 @@ export class AppComponent implements OnInit {
     );
   }
 
-  title = 'knl_nl_coding-challenge_sfmovies.client';
+  title = 'knl_nl_coding-challenge_sfmovies';
 }
