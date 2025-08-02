@@ -1,0 +1,10 @@
+{
+"SpaProxyServer": {
+"ServerUrl": "https://localhost:53929",
+"RedirectUrl": "",
+"LaunchCommand": "npm start",
+"WorkingDirectory": "C:\\Dev\\Projects\\KNL_NL_Coding-Challenge_SFMovies\\KNL_NL_Coding-Challenge_SFMovies.Server\\..\\knl_nl_coding-challenge_sfmovies.client",
+"MaxTimeoutInSeconds": "120",
+"KeepRunning": "false"
+}
+}

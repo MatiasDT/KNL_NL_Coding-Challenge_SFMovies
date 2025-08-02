@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "Ph3ZTk4++w8=",
+  "success": true,
+  "projectFilePath": "C:\\Dev\\Projects\\KNL_NL_Coding-Challenge_SFMovies\\KNL_NL_Coding-Challenge_SFMovies.Server\\KNL_NL_Coding-Challenge_SFMovies.Server.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\matia\\.nuget\\packages\\microsoft.aspnetcore.openapi\\9.0.7\\microsoft.aspnetcore.openapi.9.0.7.nupkg.sha512",
+    "C:\\Users\\matia\\.nuget\\packages\\microsoft.aspnetcore.spaproxy\\9.0.7\\microsoft.aspnetcore.spaproxy.9.0.7.nupkg.sha512",
+    "C:\\Users\\matia\\.nuget\\packages\\microsoft.openapi\\1.6.17\\microsoft.openapi.1.6.17.nupkg.sha512"
+  ],
+  "logs": []
+}
