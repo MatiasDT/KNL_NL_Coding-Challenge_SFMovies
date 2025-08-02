@@ -4,3 +4,6 @@ GET {{KNL_NL_Coding_Challenge_SFMovies.Server_HostAddress}}/weatherforecast/
 Accept: application/json
 
 ###
+
+GET {{KNL_NL_Coding_Challenge_SFMovies.Server_HostAddress}}/filmLocationsSanFrancisco/
+Accept: application/json
