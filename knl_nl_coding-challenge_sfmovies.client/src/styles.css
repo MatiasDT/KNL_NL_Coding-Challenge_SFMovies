@@ -3,3 +3,5 @@
 @plugin "daisyui" {
   themes: dark --default;
 }
+
+@import "mapbox-gl/dist/mapbox-gl.css";

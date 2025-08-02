@@ -1,1 +1,7 @@
-<div class="h-[60vh] sm:h-[calc(100vh-64px)] bg-amber-100"></div>
+<div class="h-[60vh] sm:h-[calc(100vh-64px)]">
+  <mgl-map
+    [style]="'mapbox://styles/mapbox/streets-v12'"
+    [zoom]="[9]"
+    [center]="[-74.5, 40]"
+  />
+</div>
