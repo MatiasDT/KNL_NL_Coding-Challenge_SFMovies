@@ -2,9 +2,10 @@
 
 public class FilmingLocation
 {
+    public Guid Id { get; set; } = Guid.NewGuid();
     public string? Title { get; set; }
-    public int ReleaseYear { get; set; }
+    public string? ReleaseYear { get; set; }
     public string? Locations { get; set; }
-    public int Longitude { get; set; }
-    public int Latitude { get; set; }
+    public double Longitude { get; set; }
+    public double Latitude { get; set; }
 }

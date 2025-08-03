@@ -31,10 +31,10 @@ public class FilmLocationsSanFranciscoServiceTests
             new SfMovieApiResponse
             {
                 Title = "The Matrix",
-                Release_Year = 1999,
+                Release_Year = "1999",
                 Locations = "555 Market St",
-                Longitude = -122,
-                Latitude = 37
+                Longitude = "-122",
+                Latitude = "37"
             }
         };
 
@@ -61,7 +61,7 @@ public class FilmLocationsSanFranciscoServiceTests
 
         var location = filmingLocations.First();
         Assert.Equal("The Matrix", location.Title);
-        Assert.Equal(1999, location.ReleaseYear);
+        Assert.Equal("1999", location.ReleaseYear);
         Assert.Equal("555 Market St", location.Locations);
         Assert.Equal(-122, location.Longitude);
         Assert.Equal(37, location.Latitude);

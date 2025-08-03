@@ -1,4 +1,5 @@
-﻿using System.Text.Json;
+﻿using System.Globalization;
+using System.Text.Json;
 
 namespace KNL_NL_Coding_Challenge_SFMovies.Server;
 
@@ -27,7 +28,9 @@ public class FilmLocationsSanFranciscoService : IFilmLocationsSanFranciscoServic
                     PropertyNameCaseInsensitive = true
                 });
 
-                return apiData?.Select(MapToFilmingLocation) ?? [];
+                return apiData?
+                    .Where(x => !string.IsNullOrEmpty(x.Title) && !string.IsNullOrEmpty(x.Latitude) && !string.IsNullOrEmpty(x.Longitude))
+                    .Select(MapToFilmingLocation) ?? [];
             }
 
             _logger.LogWarning("API call failed with status code: {StatusCode}", response.StatusCode);
@@ -52,8 +55,18 @@ public class FilmLocationsSanFranciscoService : IFilmLocationsSanFranciscoServic
             Title = apiResponse.Title,
             ReleaseYear = apiResponse.Release_Year,
             Locations = apiResponse.Locations,
-            Longitude = apiResponse.Longitude,
-            Latitude = apiResponse.Latitude,
+            Longitude = ParseDouble(apiResponse.Longitude),
+            Latitude = ParseDouble(apiResponse.Latitude),
         };
+    }
+
+    private static double ParseDouble(string? value)
+    {
+        if (string.IsNullOrWhiteSpace(value))
+            return 0.0;
+
+        return double.TryParse(value, NumberStyles.Float, CultureInfo.InvariantCulture, out var result)
+            ? result
+            : 0.0;
     }
 }

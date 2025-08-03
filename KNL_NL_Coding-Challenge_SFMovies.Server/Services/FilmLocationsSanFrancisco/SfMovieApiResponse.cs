@@ -3,9 +3,9 @@
 public class SfMovieApiResponse
 {
     public string? Title { get; set; }
-    public int Release_Year { get; set; }
+    public string? Release_Year { get; set; }
     public string? Locations { get; set; }
-    public int Longitude { get; set; }
-    public int Latitude { get; set; }
+    public string? Longitude { get; set; }
+    public string? Latitude { get; set; }
 }
 

@@ -19,8 +19,8 @@ public class FilmLocationsSanFranciscoControllerTests
         // Arrange
         var expectedLocations = new List<FilmingLocation>
         {
-            new() { Title = "The Matrix", ReleaseYear = 1999, Locations = "555 Market St", Longitude = -122, Latitude = 37 },
-            new() { Title = "Inception", ReleaseYear = 2010, Locations = "Golden Gate Bridge", Longitude = -122, Latitude = 37 }
+            new() { Title = "The Matrix", ReleaseYear = "1999", Locations = "555 Market St", Longitude = -122, Latitude = 37 },
+            new() { Title = "Inception", ReleaseYear = "2010", Locations = "Golden Gate Bridge", Longitude = -122, Latitude = 37 }
         };
 
         _serviceMock.Setup(s => s.GetFilmLocationsAsync())
