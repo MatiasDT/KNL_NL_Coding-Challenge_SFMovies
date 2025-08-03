@@ -1,7 +1,95 @@
-<div class="h-[60vh] sm:h-[calc(100vh-64px)]">
-  <mgl-map
-    [style]="'mapbox://styles/mapbox/streets-v12'"
-    [zoom]="[9]"
-    [center]="[-74.5, 40]"
-  />
+<div class="relative h-[60vh] sm:h-[calc(100vh-64px)]">
+  <!-- Loading indicator -->
+  @if (loading()) {
+  <div class="absolute inset-0 flex items-center justify-center bg-gray-100 bg-opacity-75 z-10">
+    <div class="flex flex-col items-center">
+      <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+      <p class="mt-2 text-gray-600">Loading film locations...</p>
+    </div>
+  </div>
+  }
+
+  <!-- Error message -->
+  @if (error()) {
+  <div class="absolute top-4 left-4 right-4 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded z-20">
+    <div class="flex justify-between items-start">
+      <div class="flex">
+        <div class="flex-shrink-0">
+          <svg class="h-5 w-5 text-red-400" viewBox="0 0 20 20" fill="currentColor">
+            <path
+              fill-rule="evenodd"
+              d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+              clip-rule="evenodd"
+            />
+          </svg>
+        </div>
+        <div class="ml-3">
+          <p class="text-sm">{{ error() }}</p>
+        </div>
+      </div>
+      <button
+        (click)="retryLoading()"
+        class="ml-3 text-red-700 hover:text-red-800 text-sm underline focus:outline-none cursor-pointer"
+      >
+        Retry
+      </button>
+    </div>
+  </div>
+  }
+
+  <!-- Map container -->
+  <div #map class="h-full w-full"></div>
+
+  <!-- Search Input -->
+  <section class="sm:fixed sm:w-[360px] sm:rounded sm:top-20 sm:left-10">
+    <div class="relative mb-4">
+      <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+        <svg class="h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+          />
+        </svg>
+      </div>
+      <input
+        type="text"
+        placeholder="Search"
+        [value]="searchQuery()"
+        (input)="onSearchInput($event)"
+        class="block w-full pl-10 pr-3 py-2 border border-gray-300 text-gray-600 rounded-lg leading-5 bg-gray-50 placeholder-gray-400 focus:outline-none focus:bg-white focus:border-blue-500 text-sm"
+      />
+    </div>
+  </section>
+
+  <!-- Search Results Info -->
+  <section class="sm:fixed sm:w-[360px] bg-white sm:rounded sm:top-32 sm:left-10 overflow-y-scroll">
+    @if (searchQuery().length >= 3) {
+    <div class="text-xs text-gray-600 text-center py-2">
+      Found {{ filteredLocations().length }} locations for "{{ searchQuery() }}"
+    </div>
+    } @else if (searchQuery().length > 0 && searchQuery().length < 3) {
+    <div class="text-xs text-gray-500 text-center py-2">
+      Type {{ 3 - searchQuery().length }} more character{{ 3 - searchQuery().length > 1 ? "s" : "" }} to search...
+    </div>
+    }
+
+    <!-- Results List -->
+    @if (filteredLocations().length > 0) {
+    <div class="flex flex-col gap-2 ml-2 mt-3 overflow-y-scroll">
+      @for (location of filteredLocations(); track location.id) {
+      <div class="form-control" (click)="flyToLocation(location.longitude, location.latitude)">
+        <label class="label cursor-pointer">
+          <span class="label-text text-black text-xs">
+            <strong [innerHTML]="highlightMatch(location.title)"></strong><br />
+            <span [innerHTML]="highlightMatch(location.locations)"></span><br />
+            <em [innerHTML]="highlightMatch(location.releaseYear)"></em>
+          </span>
+        </label>
+      </div>
+      }
+    </div>
+    }
+  </section>
 </div>
