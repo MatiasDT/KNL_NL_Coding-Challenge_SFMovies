@@ -1,5 +1,5 @@
 # Build stage
-FROM node:18-alpine AS build
+FROM node:22-alpine AS build
 WORKDIR /app
 COPY package*.json ./
 RUN npm ci
@@ -8,7 +8,7 @@ RUN npm run build
 
 # Production stage
 FROM nginx:alpine
-COPY --from=build /app/dist/my-app/browser /usr/share/nginx/html
+COPY --from=build /app/dist/knl_nl_coding-challenge_sfmovies.client/browser /usr/share/nginx/html
 COPY nginx.conf /etc/nginx/nginx.conf
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]

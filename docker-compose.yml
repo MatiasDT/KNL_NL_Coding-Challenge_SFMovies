@@ -1,9 +1,9 @@
 version: '3.8'
 
 services:
-  KNL_NL_Coding-Challenge_SFMovies.Server:
+  server:
     build:
-      context: ./WebAPI
+      context: ./KNL_NL_Coding-Challenge_SFMovies.Server
     ports:
       - "5000:8080"
     environment:
@@ -11,13 +11,16 @@ services:
     networks:
       - app-network
 
-  knl_nl_coding-challenge_sfmovies.client:
+  client:
     build:
-      context: ./ClienteAngular
+      context: ./knl_nl_coding-challenge_sfmovies.client
     ports:
       - "4200:80"
+    environment:
+      - NODE_ENV=production
+      - DOCKER_ENV=true
     depends_on:
-      - webapi
+      - server
     networks:
       - app-network
 
