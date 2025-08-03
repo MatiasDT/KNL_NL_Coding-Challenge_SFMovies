@@ -24,12 +24,8 @@ export class NavbarComponent {
   pageTitle = toSignal(
     this.router.events.pipe(
       filter((event) => event instanceof NavigationEnd),
-      map((event) => event.url),
-      map(
-        (url) =>
-          routes.find((route) => `/${route.path}` === url)?.title ??
-          'Sin Titulo'
-      )
+      map((event) => event.urlAfterRedirects || event.url),
+      map((url) => routes.find((route) => `/${route.path}` === url)?.title ?? 'Sin Titulo')
     )
   );
 }
