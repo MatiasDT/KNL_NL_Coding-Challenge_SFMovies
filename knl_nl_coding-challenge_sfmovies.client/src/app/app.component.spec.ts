@@ -1,5 +1,7 @@
-import { HttpTestingController } from '@angular/common/http/testing';
+import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
+import { provideHttpClient } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { AppComponent } from './app.component';
 
 describe('AppComponent', () => {
@@ -10,6 +12,7 @@ describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [AppComponent],
+      providers: [provideHttpClient(), provideHttpClientTesting()],
     }).compileComponents();
   });
 
@@ -20,6 +23,13 @@ describe('AppComponent', () => {
   });
 
   afterEach(() => {
+    // Handle any pending HTTP requests from the service
+    const pendingRequests = httpMock.match('/filmLocationsSanFrancisco');
+    pendingRequests.forEach((req) => {
+      if (!req.cancelled) {
+        req.flush([]);
+      }
+    });
     httpMock.verify();
   });
 
