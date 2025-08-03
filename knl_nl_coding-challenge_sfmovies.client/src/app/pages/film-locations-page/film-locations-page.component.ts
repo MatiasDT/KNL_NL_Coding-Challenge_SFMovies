@@ -79,6 +79,8 @@ export class FilmLocationsPageComponent implements AfterViewInit {
     const coordinatesSF: [number, number] = [-122.40985, 37.793085];
     const map = this.mapService.createMap(element, coordinatesSF);
 
+    this.mapService.addControls(map);
+
     map.on('load', () => {
       const layerConfig = this.getFilmLocationsMapConfig();
       const popupConfig = this.getFilmLocationsPopupConfig();

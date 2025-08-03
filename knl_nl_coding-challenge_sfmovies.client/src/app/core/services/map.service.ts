@@ -36,6 +36,12 @@ export class MapService {
     return map;
   }
 
+  addControls(map: mapboxgl.Map): void {
+    map.addControl(new mapboxgl.FullscreenControl());
+    map.addControl(new mapboxgl.NavigationControl());
+    map.addControl(new mapboxgl.ScaleControl());
+  }
+
   setupLayers(map: mapboxgl.Map, config: MapLayerConfig): void {
     map.addSource(config.sourceId, {
       type: 'geojson',
