@@ -35,7 +35,7 @@ export class FilmLocationsSfService {
     this.errorSignal.set(null);
 
     this.http
-      .get<FilmingLocation[]>('/filmLocationsSanFrancisco')
+      .get<FilmingLocation[]>('/api/filmLocationsSanFrancisco')
       .pipe(
         timeout(30000),
         retry(2),

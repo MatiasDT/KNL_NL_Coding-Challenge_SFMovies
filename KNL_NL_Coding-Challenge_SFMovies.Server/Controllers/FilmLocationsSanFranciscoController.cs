@@ -3,7 +3,7 @@
 namespace KNL_NL_Coding_Challenge_SFMovies.Server;
 
 [ApiController]
-[Route("[controller]")]
+[Route("api/[controller]")]
 public class FilmLocationsSanFranciscoController : ControllerBase
 {
     private readonly IFilmLocationsSanFranciscoService _filmLocationsService;
