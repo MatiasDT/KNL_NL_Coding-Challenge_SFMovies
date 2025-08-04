@@ -48,7 +48,7 @@ describe('FilmLocationsSfService', () => {
   describe('Service Initialization', () => {
     it('should be created', () => {
       service = TestBed.inject(FilmLocationsSfService);
-      const req = httpMock.expectOne('/filmLocationsSanFrancisco');
+      const req = httpMock.expectOne('/api/filmLocationsSanFrancisco');
       req.flush(mockFilmingLocations);
 
       expect(service).toBeTruthy();
@@ -57,7 +57,7 @@ describe('FilmLocationsSfService', () => {
     it('should call loadItems on initialization', () => {
       service = TestBed.inject(FilmLocationsSfService);
 
-      const req = httpMock.expectOne('/filmLocationsSanFrancisco');
+      const req = httpMock.expectOne('/api/filmLocationsSanFrancisco');
       expect(req.request.method).toBe('GET');
       req.flush(mockFilmingLocations);
     });
@@ -69,7 +69,7 @@ describe('FilmLocationsSfService', () => {
       expect(service.loading()).toBe(true);
       expect(service.error()).toBeNull();
 
-      const req = httpMock.expectOne('/filmLocationsSanFrancisco');
+      const req = httpMock.expectOne('/api/filmLocationsSanFrancisco');
       req.flush(mockFilmingLocations);
     });
   });
@@ -77,7 +77,7 @@ describe('FilmLocationsSfService', () => {
   describe('loadItems()', () => {
     beforeEach(() => {
       service = TestBed.inject(FilmLocationsSfService);
-      const initialReq = httpMock.expectOne('/filmLocationsSanFrancisco');
+      const initialReq = httpMock.expectOne('/api/filmLocationsSanFrancisco');
       initialReq.flush([]);
     });
 
@@ -87,14 +87,14 @@ describe('FilmLocationsSfService', () => {
       expect(service.loading()).toBe(true);
       expect(service.error()).toBeNull();
 
-      const req = httpMock.expectOne('/filmLocationsSanFrancisco');
+      const req = httpMock.expectOne('/api/filmLocationsSanFrancisco');
       req.flush(mockFilmingLocations);
     });
 
     it('should successfully load film locations', () => {
       service.loadItems();
 
-      const req = httpMock.expectOne('/filmLocationsSanFrancisco');
+      const req = httpMock.expectOne('/api/filmLocationsSanFrancisco');
       req.flush(mockFilmingLocations);
 
       expect(service.items()).toEqual(mockFilmingLocations);
@@ -105,7 +105,7 @@ describe('FilmLocationsSfService', () => {
     it('should set loading to false after successful request', () => {
       service.loadItems();
 
-      const req = httpMock.expectOne('/filmLocationsSanFrancisco');
+      const req = httpMock.expectOne('/api/filmLocationsSanFrancisco');
       req.flush(mockFilmingLocations);
 
       expect(service.loading()).toBe(false);
@@ -114,7 +114,7 @@ describe('FilmLocationsSfService', () => {
     it('should handle empty array response', () => {
       service.loadItems();
 
-      const req = httpMock.expectOne('/filmLocationsSanFrancisco');
+      const req = httpMock.expectOne('/api/filmLocationsSanFrancisco');
       req.flush([]);
 
       expect(service.items()).toEqual([]);
@@ -125,7 +125,7 @@ describe('FilmLocationsSfService', () => {
     it('should handle invalid data format and set appropriate error', () => {
       service.loadItems();
 
-      const req = httpMock.expectOne('/filmLocationsSanFrancisco');
+      const req = httpMock.expectOne('/api/filmLocationsSanFrancisco');
       req.flush('invalid data');
 
       expect(service.items()).toEqual([]);
@@ -136,7 +136,7 @@ describe('FilmLocationsSfService', () => {
     it('should handle null response and set appropriate error', () => {
       service.loadItems();
 
-      const req = httpMock.expectOne('/filmLocationsSanFrancisco');
+      const req = httpMock.expectOne('/api/filmLocationsSanFrancisco');
       req.flush(null);
 
       expect(service.items()).toEqual([]);
@@ -148,7 +148,7 @@ describe('FilmLocationsSfService', () => {
   describe('Error Handling', () => {
     beforeEach(() => {
       service = TestBed.inject(FilmLocationsSfService);
-      const initialReq = httpMock.expectOne('/filmLocationsSanFrancisco');
+      const initialReq = httpMock.expectOne('/api/filmLocationsSanFrancisco');
       initialReq.flush([]);
     });
 
@@ -159,15 +159,15 @@ describe('FilmLocationsSfService', () => {
       // This is because the service will retry twice before giving up
 
       // First attempt fails
-      const req1 = httpMock.expectOne('/filmLocationsSanFrancisco');
+      const req1 = httpMock.expectOne('/api/filmLocationsSanFrancisco');
       req1.error(new ProgressEvent('Network error'), { status: 0, statusText: 'Unknown Error' });
 
       // First retry fails
-      const req2 = httpMock.expectOne('/filmLocationsSanFrancisco');
+      const req2 = httpMock.expectOne('/api/filmLocationsSanFrancisco');
       req2.error(new ProgressEvent('Network error'), { status: 0, statusText: 'Unknown Error' });
 
       // Second retry succeeds
-      const req3 = httpMock.expectOne('/filmLocationsSanFrancisco');
+      const req3 = httpMock.expectOne('/api/filmLocationsSanFrancisco');
       req3.error(new ProgressEvent('Network error'), { status: 0, statusText: 'Unknown Error' });
 
       tick();
@@ -182,13 +182,13 @@ describe('FilmLocationsSfService', () => {
       spyOn(console, 'error');
       service.loadItems();
 
-      const req1 = httpMock.expectOne('/filmLocationsSanFrancisco');
+      const req1 = httpMock.expectOne('/api/filmLocationsSanFrancisco');
       req1.error(new ProgressEvent('Not Found'), { status: 404, statusText: 'Not Found' });
 
-      const req2 = httpMock.expectOne('/filmLocationsSanFrancisco');
+      const req2 = httpMock.expectOne('/api/filmLocationsSanFrancisco');
       req2.error(new ProgressEvent('Not Found'), { status: 404, statusText: 'Not Found' });
 
-      const req3 = httpMock.expectOne('/filmLocationsSanFrancisco');
+      const req3 = httpMock.expectOne('/api/filmLocationsSanFrancisco');
       req3.error(new ProgressEvent('Not Found'), { status: 404, statusText: 'Not Found' });
 
       tick();
@@ -203,13 +203,13 @@ describe('FilmLocationsSfService', () => {
       spyOn(console, 'error');
       service.loadItems();
 
-      const req1 = httpMock.expectOne('/filmLocationsSanFrancisco');
+      const req1 = httpMock.expectOne('/api/filmLocationsSanFrancisco');
       req1.error(new ProgressEvent('Server Error'), { status: 500, statusText: 'Internal Server Error' });
 
-      const req2 = httpMock.expectOne('/filmLocationsSanFrancisco');
+      const req2 = httpMock.expectOne('/api/filmLocationsSanFrancisco');
       req2.error(new ProgressEvent('Server Error'), { status: 500, statusText: 'Internal Server Error' });
 
-      const req3 = httpMock.expectOne('/filmLocationsSanFrancisco');
+      const req3 = httpMock.expectOne('/api/filmLocationsSanFrancisco');
       req3.error(new ProgressEvent('Server Error'), { status: 500, statusText: 'Internal Server Error' });
 
       tick();
@@ -224,13 +224,13 @@ describe('FilmLocationsSfService', () => {
       spyOn(console, 'error');
       service.loadItems();
 
-      const req1 = httpMock.expectOne('/filmLocationsSanFrancisco');
+      const req1 = httpMock.expectOne('/api/filmLocationsSanFrancisco');
       req1.error(new ProgressEvent('Service Unavailable'), { status: 503, statusText: 'Service Unavailable' });
 
-      const req2 = httpMock.expectOne('/filmLocationsSanFrancisco');
+      const req2 = httpMock.expectOne('/api/filmLocationsSanFrancisco');
       req2.error(new ProgressEvent('Service Unavailable'), { status: 503, statusText: 'Service Unavailable' });
 
-      const req3 = httpMock.expectOne('/filmLocationsSanFrancisco');
+      const req3 = httpMock.expectOne('/api/filmLocationsSanFrancisco');
       req3.error(new ProgressEvent('Service Unavailable'), { status: 503, statusText: 'Service Unavailable' });
 
       tick();
@@ -245,13 +245,13 @@ describe('FilmLocationsSfService', () => {
       spyOn(console, 'error');
       service.loadItems();
 
-      const req1 = httpMock.expectOne('/filmLocationsSanFrancisco');
+      const req1 = httpMock.expectOne('/api/filmLocationsSanFrancisco');
       req1.error(new ProgressEvent('Bad Request'), { status: 400, statusText: 'Bad Request' });
 
-      const req2 = httpMock.expectOne('/filmLocationsSanFrancisco');
+      const req2 = httpMock.expectOne('/api/filmLocationsSanFrancisco');
       req2.error(new ProgressEvent('Bad Request'), { status: 400, statusText: 'Bad Request' });
 
-      const req3 = httpMock.expectOne('/filmLocationsSanFrancisco');
+      const req3 = httpMock.expectOne('/api/filmLocationsSanFrancisco');
       req3.error(new ProgressEvent('Bad Request'), { status: 400, statusText: 'Bad Request' });
 
       tick();
@@ -265,13 +265,13 @@ describe('FilmLocationsSfService', () => {
     it('should set loading to false even when error occurs', fakeAsync(() => {
       service.loadItems();
 
-      const req1 = httpMock.expectOne('/filmLocationsSanFrancisco');
+      const req1 = httpMock.expectOne('/api/filmLocationsSanFrancisco');
       req1.error(new ProgressEvent('Error'), { status: 500, statusText: 'Internal Server Error' });
 
-      const req2 = httpMock.expectOne('/filmLocationsSanFrancisco');
+      const req2 = httpMock.expectOne('/api/filmLocationsSanFrancisco');
       req2.error(new ProgressEvent('Error'), { status: 500, statusText: 'Internal Server Error' });
 
-      const req3 = httpMock.expectOne('/filmLocationsSanFrancisco');
+      const req3 = httpMock.expectOne('/api/filmLocationsSanFrancisco');
       req3.error(new ProgressEvent('Error'), { status: 500, statusText: 'Internal Server Error' });
 
       tick();
@@ -283,7 +283,7 @@ describe('FilmLocationsSfService', () => {
   describe('refreshData()', () => {
     beforeEach(() => {
       service = TestBed.inject(FilmLocationsSfService);
-      const initialReq = httpMock.expectOne('/filmLocationsSanFrancisco');
+      const initialReq = httpMock.expectOne('/api/filmLocationsSanFrancisco');
       initialReq.flush([]);
     });
 
@@ -298,7 +298,7 @@ describe('FilmLocationsSfService', () => {
     it('should make HTTP request when refreshData is called', () => {
       service.refreshData();
 
-      const req = httpMock.expectOne('/filmLocationsSanFrancisco');
+      const req = httpMock.expectOne('/api/filmLocationsSanFrancisco');
       expect(req.request.method).toBe('GET');
       req.flush(mockFilmingLocations);
     });
@@ -306,7 +306,7 @@ describe('FilmLocationsSfService', () => {
     it('should update items when refreshData succeeds', () => {
       service.refreshData();
 
-      const req = httpMock.expectOne('/filmLocationsSanFrancisco');
+      const req = httpMock.expectOne('/api/filmLocationsSanFrancisco');
       req.flush(mockFilmingLocations);
 
       expect(service.items()).toEqual(mockFilmingLocations);
@@ -316,15 +316,15 @@ describe('FilmLocationsSfService', () => {
   describe('HTTP Request Configuration', () => {
     beforeEach(() => {
       service = TestBed.inject(FilmLocationsSfService);
-      const initialReq = httpMock.expectOne('/filmLocationsSanFrancisco');
+      const initialReq = httpMock.expectOne('/api/filmLocationsSanFrancisco');
       initialReq.flush([]);
     });
 
     it('should make request to correct endpoint', () => {
       service.loadItems();
 
-      const req = httpMock.expectOne('/filmLocationsSanFrancisco');
-      expect(req.request.url).toBe('/filmLocationsSanFrancisco');
+      const req = httpMock.expectOne('/api/filmLocationsSanFrancisco');
+      expect(req.request.url).toBe('/api/filmLocationsSanFrancisco');
       expect(req.request.method).toBe('GET');
       req.flush([]);
     });
@@ -332,13 +332,13 @@ describe('FilmLocationsSfService', () => {
     it('should retry failed requests and succeed on final attempt', fakeAsync(() => {
       service.loadItems();
 
-      const req1 = httpMock.expectOne('/filmLocationsSanFrancisco');
+      const req1 = httpMock.expectOne('/api/filmLocationsSanFrancisco');
       req1.error(new ProgressEvent('Timeout'), { status: 408, statusText: 'Request Timeout' });
 
-      const req2 = httpMock.expectOne('/filmLocationsSanFrancisco');
+      const req2 = httpMock.expectOne('/api/filmLocationsSanFrancisco');
       req2.error(new ProgressEvent('Timeout'), { status: 408, statusText: 'Request Timeout' });
 
-      const req3 = httpMock.expectOne('/filmLocationsSanFrancisco');
+      const req3 = httpMock.expectOne('/api/filmLocationsSanFrancisco');
       req3.flush(mockFilmingLocations);
 
       tick();
@@ -352,7 +352,7 @@ describe('FilmLocationsSfService', () => {
   describe('Signal Readonly Properties', () => {
     beforeEach(() => {
       service = TestBed.inject(FilmLocationsSfService);
-      const initialReq = httpMock.expectOne('/filmLocationsSanFrancisco');
+      const initialReq = httpMock.expectOne('/api/filmLocationsSanFrancisco');
       initialReq.flush([]);
     });
 
@@ -375,7 +375,7 @@ describe('FilmLocationsSfService', () => {
   describe('Console Logging', () => {
     beforeEach(() => {
       service = TestBed.inject(FilmLocationsSfService);
-      const initialReq = httpMock.expectOne('/filmLocationsSanFrancisco');
+      const initialReq = httpMock.expectOne('/api/filmLocationsSanFrancisco');
       initialReq.flush([]);
     });
 
@@ -384,7 +384,7 @@ describe('FilmLocationsSfService', () => {
 
       service.loadItems();
 
-      const req = httpMock.expectOne('/filmLocationsSanFrancisco');
+      const req = httpMock.expectOne('/api/filmLocationsSanFrancisco');
       req.flush(mockFilmingLocations);
 
       expect(console.log).toHaveBeenCalledWith('Loaded 2 locations');
@@ -395,13 +395,13 @@ describe('FilmLocationsSfService', () => {
 
       service.loadItems();
 
-      const req1 = httpMock.expectOne('/filmLocationsSanFrancisco');
+      const req1 = httpMock.expectOne('/api/filmLocationsSanFrancisco');
       req1.error(new ProgressEvent('Error'), { status: 500, statusText: 'Internal Server Error' });
 
-      const req2 = httpMock.expectOne('/filmLocationsSanFrancisco');
+      const req2 = httpMock.expectOne('/api/filmLocationsSanFrancisco');
       req2.error(new ProgressEvent('Error'), { status: 500, statusText: 'Internal Server Error' });
 
-      const req3 = httpMock.expectOne('/filmLocationsSanFrancisco');
+      const req3 = httpMock.expectOne('/api/filmLocationsSanFrancisco');
       req3.error(new ProgressEvent('Error'), { status: 500, statusText: 'Internal Server Error' });
 
       tick();
@@ -414,7 +414,7 @@ describe('FilmLocationsSfService', () => {
 
       service.loadItems();
 
-      const req = httpMock.expectOne('/filmLocationsSanFrancisco');
+      const req = httpMock.expectOne('/api/filmLocationsSanFrancisco');
       req.flush('invalid data');
 
       expect(console.warn).toHaveBeenCalledWith('Expected array but received:', 'invalid data');
