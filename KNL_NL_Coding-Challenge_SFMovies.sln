@@ -11,6 +11,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 		.gitignore = .gitignore
+		docker-compose.yml = docker-compose.yml
+		README.md = README.md
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KNL_NL_Coding-Challenge_SFMovies.Server.Tests", "KNL_NL_Coding-Challenge_SFMovies.Server.Tests\KNL_NL_Coding-Challenge_SFMovies.Server.Tests.csproj", "{0E2640E0-55C5-F895-AF33-1648DBC8F91C}"
